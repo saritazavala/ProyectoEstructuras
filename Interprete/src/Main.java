@@ -5,6 +5,7 @@ public class Main {
 
 
         Scanner leer = new Scanner(System.in);
+        System.out.println("Ingrese una operacion");
         String operacion = leer.nextLine();
 
         Interprete interprete = new Interprete();
