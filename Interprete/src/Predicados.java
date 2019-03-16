@@ -15,13 +15,22 @@ public class Predicados<E extends Comparable<Integer> > {
         return  valorA.equals(valorB);
     }
 
-    public boolean mayorMenor(int valorA, int valorB ){
+    public Boolean mayorMenor(int valorA, int valorB ){
         if(valorA > valorB){
-            return false;
-        }else{
             return true;
+        }else{
+            return false;
         }
     }
+
+    public Boolean menorMayor(int valorA, int valorB ){
+        if(valorA < valorB){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public boolean atom(String valor){
         boolean esAtom = true;
@@ -47,4 +56,3 @@ public class Predicados<E extends Comparable<Integer> > {
 
 
 }
-
