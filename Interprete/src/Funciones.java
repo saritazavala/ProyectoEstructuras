@@ -1,3 +1,9 @@
+/*
+Sara Zavala 18893
+Proyecto Estructuras de Datos
+Interprete Lisp
+Marzo de 2019
+* */
 import java.sql.SQLOutput;
 import java.util.LinkedList;
 import java.util.Stack;
