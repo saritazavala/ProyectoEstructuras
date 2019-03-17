@@ -1,94 +1,86 @@
-import java.util.LinkedList;
-import java.util.Stack;
+
+import java.util.*;
 
 //Referencia de la idea: http://norvig.com/lispy.html
-
 public class OperacionesAritmeticas {
-    LinkedList<String> operaciones = new LinkedList<>();
-    LinkedList<Integer> tokens = new LinkedList<>();
-    LinkedList<String> operadores = new LinkedList<>();
-    char[] parser;
 
-    public void hacerOperacionesAritmeticas(String operacion) {
-        String operacionInterna = "";
-        int tokensInternos = 0;
-        int contadorParentesisInterno = 0;
-        operacion = "(+ 5 (+ 1 2 3) (+ (+ 1 2 3) 1) (+ 4 5 6) (+ 7 8 9) 5)".replaceAll("\\s", "");
-        parser = operacion.toCharArray();
+    private LinkedList<String> definiciones = new LinkedList<>();
+    private Stack<String> subDefiniciones = new Stack<>();
+    private char[] parser;
+    private int contador;
+    private String numeroDosDigitos = "";
+    private int resultado = 0;
 
-        for (int i = 1; i < parser.length; i++) {
-            if (parser[i] == '(') {
-                if(operacionInterna != "" && operacionInterna != "+"){
-                    operaciones.add(operacionInterna);
-                }
-                operacionInterna = Character.toString(parser[i]);
-
-
-                tokensInternos++;
-                tokens.push(tokensInternos);
-
-            } else if (Character.isDigit(parser[i])) {
-                operacionInterna += parser[i];
-
-            } else if (parser[i] == '+') {
-                if (parser[i + 1] == '(') {
-                    tokensInternos = 0;
-                    operadores.add(Character.toString(parser[i]));
-
-                } else {
-
-                    operacionInterna += parser[i];
-                }
-
-            } else if (parser[i] == '-') {
-                operacionInterna += parser[i];
-            } else if (parser[i] == '*') {
-                operacionInterna += parser[i];
-            } else if (parser[i] == '/') {
-                operacionInterna += parser[i];
-            }
-            if (parser[i] == ')') {
-                operacionInterna += parser[i];
-                if (!operacionInterna.equals(")")) {
-                    operaciones.add(operacionInterna);
-                    operacionInterna = "";
-                }
-            }
-        }
+    public OperacionesAritmeticas(String procedimiento){
+        parser = procedimiento.toCharArray();
+        contador = 0;
+        hacerOperacionesAritmeticas();
     }
-    int resultadoSuma = 0;
-    public void obtenerResultado() {
+    private void hacerOperacionesAritmeticas() {
+        switch (parser[contador]){
+            case '+': definiciones.addFirst("+"); break;
+            case '-': definiciones.addFirst("-");break;
+            case '*': definiciones.addFirst("*");break;
+            case '/': definiciones.addFirst("/");break;
+            case ')': resultadoRecursivo(); break;
+            default: if(Character.isDigit(parser[contador])){
+                if(Character.isDigit(parser[contador + 1])){
+                    numeroDosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]);
+                    contador++;
 
-        String operacion = operaciones.removeFirst();
-        String operador = "";
-        int numero1 = 0;
-        Stack<Integer> numeros = new Stack<>();
+                    definiciones.addFirst(numeroDosDigitos);
+                    break;
+                }else{
+                    definiciones.addFirst(Character.toString(parser[contador]));
+                }
 
-        for (int i = operacion.length() - 1; i >= 0; i--) {
-            if(Character.isDigit(operacion.charAt(i))){
-                numeros.push(Integer.parseInt(Character.toString(operacion.charAt(i))));
-            }else if(operacion.charAt(i) == '+'){
-                operador = Character.toString(operacion.charAt(i));
+                break;
             }
         }
-
-        for (int i = 0; numeros.size() > 0 ; i++) {
-            int b = numeros.pop();
-            int a = 0;
-            if(numeros.size() > 0){
-                a = numeros.pop();
-            }
-
-            resultadoSuma += sumar(a,b);
-        }
-        System.out.println(resultadoSuma);
-        if(operaciones.size() > 0){
-            obtenerResultado();
-
+        contador++;
+        //definiciones.forEach(s -> System.out.println(s));
+        if(contador == parser.length){
+            System.out.println(resultado);
+            return;
+        }else{
+            hacerOperacionesAritmeticas();
         }
     }
 
-    public int sumar(int a, int b){
-        return  a + b;
+    private void resultadoRecursivo(){
+        if(!definiciones.peekFirst().equals("+") && !definiciones.peekFirst().equals("-") && !definiciones.peekFirst().equals("*")
+                && !definiciones.peekFirst().equals("/")){
+            subDefiniciones.push(definiciones.removeFirst());
+            resultadoRecursivo();
+        }else{
+            resultado = Integer.parseInt(subDefiniciones.pop());
+            subResultado();
+
+            definiciones.remove(0);
+            definiciones.addFirst(String.valueOf(resultado)); //6
+
+            return;
+        }
+
+    }
+
+    private void subResultado(){
+        if(subDefiniciones.size() > 0){
+            if(definiciones.get(0).equals("+")){
+                resultado += Integer.parseInt(subDefiniciones.pop());
+            }else if(definiciones.get(0).equals("-")){
+                resultado -= Integer.parseInt(subDefiniciones.pop());
+            }else if(definiciones.get(0).equals("*")){
+                resultado *= Integer.parseInt(subDefiniciones.pop());
+            }else if(definiciones.get(0).equals("/")){
+                resultado /= Integer.parseInt(subDefiniciones.pop());
+            }
+            subResultado();
+        }else{
+            return;
+        }
+
+
+
     }
 }
