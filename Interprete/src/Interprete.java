@@ -122,3 +122,5 @@ public class Interprete {
         return comparado1.equals(comparado2);
     }
 }
+
+
