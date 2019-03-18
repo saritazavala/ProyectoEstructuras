@@ -15,7 +15,7 @@ public class Funciones {
     private String operaciones;
     private int cantidadParametros;
     private int cantidadOperaciones;
-    private Stack<Integer> valores = new Stack<>();
+    private LinkedList<Integer> valores = new LinkedList<>();
     private Stack<String> operacion = new Stack<>();
 
     public Funciones(String definicion, String nombre, String parametros, String operaciones, int cantidadOperaciones, int cantidadParametros){
@@ -25,13 +25,12 @@ public class Funciones {
         this.operaciones = operaciones;
         this.cantidadParametros = cantidadParametros;
         this.cantidadOperaciones = cantidadOperaciones;
-        System.out.println(operaciones.indexOf(")"));
         System.out.println("Funcion creada: ");
         System.out.println(definicion + nombre + parametros + operaciones);
 
 
     }
-    public void realizarFuncion(Stack<Integer> valores){
+    public void realizarFuncion(LinkedList<Integer> valores){
         if(valores.size() > cantidadParametros){
             System.out.println("Hay demasiados valores en los parametros");
         }else{
@@ -44,19 +43,29 @@ public class Funciones {
 
     public void realizarFuncion(){
 
+        if(operaciones.contains("Cond")){
+            for (int j = 5; j < operaciones.length() ; j++) {
+                if(operaciones.charAt(j) == 'a' || operaciones.charAt(j) == 'b' || operaciones.charAt(j) == 'c' || operaciones.charAt(j) == 'd'
+                        || operaciones.charAt(j) == 'e' || operaciones.charAt(j) == 'f'){ //fix this
+                    operaciones = operaciones.replace(Character.toString(operaciones.charAt(j)), valores.removeLast().toString());
+                }
 
-        for (int j = 0; j < operaciones.length() ; j++) {
-            if(operaciones.charAt(j) != ' ' && operaciones.charAt(j) != '+' && operaciones.charAt(j) != ')' && operaciones.charAt(j) != '(' && operaciones.charAt(j) != '*'
-                    && operaciones.charAt(j) != '/' && operaciones.charAt(j) != '-' && !Character.isDigit(operaciones.charAt(j))){ //fix this
-                operaciones = operaciones.replace(Character.toString(operaciones.charAt(j)), valores.pop().toString());
             }
+        }else {
+            for (int j = 0; j < operaciones.length() ; j++) {
+                if(operaciones.charAt(j) == 'a' || operaciones.charAt(j) == 'b' || operaciones.charAt(j) == 'c' || operaciones.charAt(j) == 'd'
+                        || operaciones.charAt(j) == 'e' || operaciones.charAt(j) == 'f'){ //fix this
+                    operaciones = operaciones.replace(Character.toString(operaciones.charAt(j)), valores.removeLast().toString());
+                }
 
+            }
         }
+
         operacion.push(operaciones);
         //System.out.println(operacion.pop());\
         if(operacion.peek().contains("+") || operacion.peek().contains("-") || operacion.peek().contains("*") || operacion.peek().contains("/")){
             new OperacionesAritmeticas(operacion.pop());
-        }else if(operacion.peek().contains("COND")){
+        }else if(operacion.peek().contains("Cond")){ //arreglar esta parte
             new Condicionales(operacion.pop());
         }
 
@@ -91,13 +100,7 @@ public class Funciones {
         this.cantidadParametros = cantidadParametros;
     }
 
-    public Stack<Integer> getValores() {
-        return valores;
-    }
 
-    public void setValores(Stack<Integer> valores) {
-        this.valores = valores;
-    }
 
     public Stack<String> getOperacion() {
         return operacion;

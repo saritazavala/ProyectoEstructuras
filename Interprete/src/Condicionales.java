@@ -6,7 +6,7 @@ Marzo de 2019
 * */
 public class Condicionales {
 
-    String[] operaciones;
+    String operaciones;
     Predicados p = new Predicados();
     String operador = "";
 
@@ -14,11 +14,13 @@ public class Condicionales {
         evaluarCondicionales(o);
     }
     public void evaluarCondicionales(String o) {
-        operaciones  = o.split("\\(");
+        operaciones  = o.substring(1, o.indexOf(" "));
+        o = o.substring( o.indexOf(" ") + 1);
+        operaciones = o.substring(1, o.indexOf(")"));
         String a = "";
         String b = "";
         String operacion = "";
-        String[] operandos = o.split(" ");
+        String[] operandos =operaciones.split(" ");
         String operando = "";
 
         for (int i = 0; i <  operandos.length; i++) {
@@ -33,23 +35,37 @@ public class Condicionales {
             }
 
         }
-        for (int i = 0; i < operaciones.length; i++) {
+        for (int i = 0; i < operaciones.length(); i++) {
 
 
-            if(operandos[i].contains(">")){
+            if(operaciones.contains(">")){
                 System.out.println(p.mayorMenor((Integer.parseInt(a)),Integer.parseInt(b)));
+                break;
             }
 
-            if(operandos[i].contains("<")){
+            if(operaciones.contains("<")){
                 System.out.println(p.menorMayor((Integer.parseInt(a)),Integer.parseInt(b)));
+                break;
             }
 
-            if(operandos[i].contains("=")){
+            if(operaciones.contains("=")){
                 System.out.println(p.equals((Integer.parseInt(a)),Integer.parseInt(b)));
+                break;
             }
 
-            if(operaciones[i].contains("Equal")){
+            if(operaciones.contains("Equal")){
                 System.out.println(p.equals((Integer.parseInt(a)),Integer.parseInt(b)));
+                break;
+            }
+
+            if(operaciones.contains("Atom")){
+                System.out.println(p.atom(o));
+                break;
+            }
+
+            if(operaciones.contains("List")){
+                System.out.println(p.lista(o));
+                break;
             }
 
         }

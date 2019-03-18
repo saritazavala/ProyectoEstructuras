@@ -11,7 +11,7 @@ import java.util.Stack;
 public class Analizador {
     private Stack<Funciones> funciones = new Stack<>();
     private Stack<String> operaciones = new Stack<>();
-    private Stack<Integer> valorParametros = new Stack<>();
+    private LinkedList<Integer> valorParametros = new LinkedList<>();
     private boolean existeOperacion = false;
     private String nombreFuncion;
     private String parametros;
@@ -30,7 +30,7 @@ public class Analizador {
     public void realizarFunciones(String funcion){
         for (int i = 0; i < funcion.length() ; i++) {
             if(Character.isDigit(funcion.charAt(i))){
-                valorParametros.push(Integer.parseInt(Character.toString(funcion.charAt(i))));
+                valorParametros.addFirst(Integer.parseInt(Character.toString(funcion.charAt(i))));
             }
         }
         funciones.pop().realizarFuncion(valorParametros);

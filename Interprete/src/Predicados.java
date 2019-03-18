@@ -41,7 +41,7 @@ public class Predicados<E extends Comparable<Integer> > {
     public boolean atom(String valor){
         boolean esAtom = true;
         for (int i = 0; i <listas.size() ; i++) {
-            if(valor.startsWith("(list") || valor.startsWith("(cons") || valor.startsWith("'(")) {
+            if(valor.contains("list") || valor.contains("cons") || valor.contains("'(")) {
                 return esAtom = false;
             }
         }
@@ -52,7 +52,7 @@ public class Predicados<E extends Comparable<Integer> > {
     public  boolean lista(String valor){
         boolean esLista = false;
         for (int i = 0; i <listas.size() ; i++) {
-            if(valor.startsWith("(list") || valor.startsWith("(cons") || valor.startsWith("'(")) {
+            if(valor.contains("(list") || valor.contains("(cons") || valor.contains("'(")) {
                 return esLista = true;
             }
         }
