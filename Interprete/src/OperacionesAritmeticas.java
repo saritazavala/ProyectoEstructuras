@@ -14,46 +14,46 @@ import java.util.*;
 //Referencia de la idea: http://norvig.com/lispy.html
 public class OperacionesAritmeticas {
 
-    private LinkedList<String> definiciones = new LinkedList<>();
-    private Stack<String> subDefiniciones = new Stack<>();
-    private char[] parser;
-    private int contador;
-    private String numeroDosDigitos = "";
-    private int resultado = 0;
+    private LinkedList<String> definiciones = new LinkedList<>(); //LinkedList creada
+    private Stack<String> subDefiniciones = new Stack<>(); // Stack Strings
+    private char[] parser; //Parser, lista de chars
+    private int contador; // Contador
+    private String numeroDosDigitos = ""; //Para revisar si es un numero de dos digitos
+    private int resultado = 0; // Resultado de las operaciones
 
-    public OperacionesAritmeticas(String procedimiento){
-        parser = procedimiento.toCharArray();
+    public OperacionesAritmeticas(String procedimiento){ //Operaciones Aritmeticas
+        parser = procedimiento.toCharArray(); //Parser va a ser un char array que va a separar caracter por caracter
         contador = 0;
         hacerOperacionesAritmeticas();
     }
-    private void hacerOperacionesAritmeticas() {
-        switch (parser[contador]){
+    private void hacerOperacionesAritmeticas() { //Metodo que realiza una operacion aritmetica dentro de un parentesis
+        switch (parser[contador]){//va  a ir cambiando el contador y se va a ir con el switch viendo que tipo de operacion es
             case '+': definiciones.addFirst("+"); break;
             case '-': definiciones.addFirst("-"); break;
             case '*': definiciones.addFirst("*"); break;
             case '/': definiciones.addFirst("/"); break;
             case ')': try{ resultadoRecursivo();}catch (Exception e){}break;
             default: if(Character.isDigit(parser[contador])){
-                if(Character.isDigit(parser[contador + 1])){
-                    numeroDosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]);
-                    contador++;
+                if(Character.isDigit(parser[contador + 1])){// Si es un digito lo va a separar y se le va agregando a la posicion contador +1
+                    numeroDosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]);// Verifica si es un numero de 2 digitos
+                    contador++; //contador++
 
-                    definiciones.addFirst(numeroDosDigitos);
+                    definiciones.addFirst(numeroDosDigitos); //Se va agregando el numero a nuestra LinkedList
                     break;
                 }else{
-                    definiciones.addFirst(Character.toString(parser[contador]));
+                    definiciones.addFirst(Character.toString(parser[contador])); //Se convierte de caracter a String y se apregar al parser en la poscion contador
                 }
 
-                break;
+                break; //Break
             }
         }
         contador++;
-        //definiciones.forEach(s -> System.out.println(s));
+
         if(contador == parser.length){
             System.out.println(resultado);
-            return;
+            return; //Cuando el contador sea = al larfgo de nuestro parser, que es un array se va a printear
         }else{
-            hacerOperacionesAritmeticas();
+            hacerOperacionesAritmeticas(); // si no se cumple, se va a operar la operacion
         }
     }
 
