@@ -4,6 +4,7 @@ Proyecto Estructuras de Datos
 Interprete Lisp
 Marzo de 2019
 * */
+
 import java.util.*;
 
 //Referencia de la idea: http://norvig.com/lispy.html
@@ -24,10 +25,10 @@ public class OperacionesAritmeticas {
     private void hacerOperacionesAritmeticas() {
         switch (parser[contador]){
             case '+': definiciones.addFirst("+"); break;
-            case '-': definiciones.addFirst("-");break;
-            case '*': definiciones.addFirst("*");break;
-            case '/': definiciones.addFirst("/");break;
-            case ')': resultadoRecursivo(); break;
+            case '-': definiciones.addFirst("-"); break;
+            case '*': definiciones.addFirst("*"); break;
+            case '/': definiciones.addFirst("/"); break;
+            case ')': try{ resultadoRecursivo();}catch (Exception e){}break;
             default: if(Character.isDigit(parser[contador])){
                 if(Character.isDigit(parser[contador + 1])){
                     numeroDosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]);

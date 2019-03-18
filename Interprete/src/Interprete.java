@@ -121,5 +121,4 @@ public class Interprete {
     private boolean equals(String comparado1, String comparado2){
         return comparado1.equals(comparado2);
     }
-
 }

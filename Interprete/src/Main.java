@@ -5,12 +5,10 @@ Interprete Lisp
 Marzo de 2019
 * */
 
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
 
-
+/*
         Scanner leer = new Scanner(System.in);
         System.out.println("Ingrese una operacion");
         String operacion = leer.nextLine();
@@ -18,8 +16,13 @@ public class Main {
         Interprete interprete = new Interprete();
         interprete.operacionesAritmeticas(operacion);
 
+    */
 
-
+        //OperacionesAritmeticas o = new OperacionesAritmeticas("(+ 2 (* (+ 3 4 5)4) (- 6 4 1))");
+        Analizador a = new Analizador();
+        a.definirFunciones("(Defun Suma (a,b) (+ (+ a b) b )))");
+        a.realizarFunciones("(Suma 3 4)");
+        //  o.obtenerResultado();
         /**
          Stack<String> operaciones = new Stack<>();
          Queue<Character> digitos = new LinkedList<>();

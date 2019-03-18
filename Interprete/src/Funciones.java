@@ -10,24 +10,49 @@ import java.util.Stack;
 
 public class Funciones {
     private String nombre;
+    private String definicion;
     private String parametros;
+    private String operaciones;
     private int cantidadParametros;
-    private Stack<Integer> valores;
-    private Stack<String> operacion;
+    private int cantidadOperaciones;
+    private Stack<Integer> valores = new Stack<>();
+    private Stack<String> operacion = new Stack<>();
 
-    public Funciones(String nombre, String parametros, int cantidadParametros, Stack<Integer> valores, Stack<String> operacion){
+    public Funciones(String definicion, String nombre, String parametros, String operaciones, int cantidadOperaciones, int cantidadParametros){
+        this.definicion = definicion;
         this.nombre = nombre;
         this.parametros = parametros;
+        this.operaciones = operaciones;
         this.cantidadParametros = cantidadParametros;
-        this.valores = valores;
-        this.operacion = operacion;
+        this.cantidadOperaciones = cantidadOperaciones;
+        System.out.println(operaciones.indexOf(")"));
+        System.out.println("Funcion creada: ");
+        System.out.println(definicion + nombre + parametros + operaciones);
+
+
+    }
+    public void realizarFuncion(Stack<Integer> valores){
+        if(valores.size() > cantidadParametros){
+            System.out.println("Hay demasiados valores en los parametros");
+        }else{
+            this.valores = valores;
+            realizarFuncion();
+        }
+
+
     }
 
     public void realizarFuncion(){
-        System.out.println(nombre);
-        System.out.println(parametros);
-        System.out.println("Cantidad de parametros: " + cantidadParametros);
-        System.out.println("a: " + valores.pop().toString() + " - " + "b: " + valores.pop());
+
+
+        for (int j = 0; j < operaciones.length() ; j++) {
+            if(operaciones.charAt(j) != ' ' && operaciones.charAt(j) != '+' && operaciones.charAt(j) != ')' && operaciones.charAt(j) != '(' && operaciones.charAt(j) != '*'
+                    && operaciones.charAt(j) != '/' && operaciones.charAt(j) != '-' && !Character.isDigit(operaciones.charAt(j))){ //fix this
+                operaciones = operaciones.replace(Character.toString(operaciones.charAt(j)), valores.pop().toString());
+            }
+
+        }
+        operacion.push(operaciones);
         //System.out.println(operacion.pop());\
         if(operacion.peek().contains("+") || operacion.peek().contains("-") || operacion.peek().contains("*") || operacion.peek().contains("/")){
             new OperacionesAritmeticas(operacion.pop());
