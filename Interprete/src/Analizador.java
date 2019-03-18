@@ -1,5 +1,8 @@
 /*
 Sara Zavala 18893
+Alexa Bravo  18831
+Andres Quinto 18288
+Renato Estrada  181099
 Proyecto Estructuras de Datos
 Interprete Lisp
 Marzo de 2019
