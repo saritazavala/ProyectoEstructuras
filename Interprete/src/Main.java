@@ -4,6 +4,11 @@ Proyecto Estructuras de Datos
 Interprete Lisp
 Marzo de 2019
 * */
+//(* 2 5)
+//(Cond (< 3 2))
+//(< 2 3)
+//(Defun multi (a,b) (* a b))
+//(multi 3 2)
 
 import java.util.Scanner;
 
