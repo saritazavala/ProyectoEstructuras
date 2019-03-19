@@ -9,55 +9,71 @@ Marzo de 2019
 * */
 
 
-import java.util.*;
+
 
 /**
  *@author user
  */
+
+import java.util.*;
+
 //Referencia de la idea: http://norvig.com/lispy.html
 public class OperacionesAritmeticas {
 
-    private LinkedList<String> definiciones = new LinkedList<>(); //LinkedList creada
-    private Stack<String> subDefiniciones = new Stack<>(); // Stack Strings
-    private char[] parser; //Parser, lista de chars
-    private int contador; // Contador
-    private String numeroDosDigitos = ""; //Para revisar si es un numero de dos digitos
-    private int resultado = 0; // Resultado de las operaciones
+    private LinkedList<String> definiciones = new LinkedList<>();
+    private Stack<String> subDefiniciones = new Stack<>();
+    private char[] parser;
+    private int contador;
+    private String numeroVariosDigitos = "";
+    private double resultado = 0.0;
+    private boolean isDecimal;
 
-    /**
-     * @param procedimiento
-     */
-    public OperacionesAritmeticas(String procedimiento){ //Operaciones Aritmeticas
-        parser = procedimiento.toCharArray(); //Parser va a ser un char array que va a separar caracter por caracter
+    public OperacionesAritmeticas(String procedimiento){
+        parser = procedimiento.toCharArray();
         contador = 0;
         hacerOperacionesAritmeticas();
     }
-
-    /**
-     * Operar cada operacion
-     */
     private void hacerOperacionesAritmeticas() { //Metodo que realiza una operacion aritmetica dentro de un parentesis
+        this.isDecimal = false;
         switch (parser[contador]){//va  a ir cambiando el contador y se va a ir con el switch viendo que tipo de operacion es
-            case '+': definiciones.addFirst("+"); break;
-            case '-': definiciones.addFirst("-"); break;
-            case '*': definiciones.addFirst("*"); break;
-            case '/': definiciones.addFirst("/"); break;
-            case ')': try{ resultadoRecursivo();}catch (Exception e){}break;
-            default: if(Character.isDigit(parser[contador])){
-                if(Character.isDigit(parser[contador + 1])){// Si es un digito lo va a separar y se le va agregando a la posicion contador +1
-                    numeroDosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]);// Verifica si es un numero de 2 digitos
-                    contador++; //contador++
 
-                    definiciones.addFirst(numeroDosDigitos); //Se va agregando el numero a nuestra LinkedList
+            case '+': definiciones.addFirst("+"); contador++; break;
+            case '-': definiciones.addFirst("-"); contador++;break;
+            case '*': definiciones.addFirst("*"); contador++;break;
+            case '/': definiciones.addFirst("/"); contador++;break;
+            case ')': try{ resultadoRecursivo();}catch (Exception e){} contador++; break;
+            default: if(Character.isDigit(parser[contador])) {
+                try {
+                    if(parser[contador + 1] == '.'){
+                        numeroVariosDigitos += Character.toString(parser[contador])  + Character.toString(parser[contador +1])
+                                + Character.toString(parser[contador + 2]);
+                        contador+=3;
+                        isDecimal = true;
+                        definiciones.addFirst(numeroVariosDigitos);
+                        break;
+                    }
+                    if (Character.isDigit(parser[contador + 2]) && parser[contador + 1] != ' ') {// Si es un digito lo va a separar y se le va agregando a la posicion contador +1
+                        numeroVariosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]) + Character.toString(parser[contador + 2]);
+                        contador += 3;
+                        definiciones.addFirst(numeroVariosDigitos); //Se va agregando el numero a nuestra LinkedList
+                        break;
+                    } }catch (Exception e){}if (Character.isDigit(parser[contador + 1]) && isDecimal == false) {
+                    numeroVariosDigitos = Character.toString(parser[contador]) + Character.toString(parser[contador + 1]);// Verifica si es un numero de 2 digitos
+                    contador++; //contador++
                     break;
-                }else{
+                }
+                else {
                     definiciones.addFirst(Character.toString(parser[contador])); //Se convierte de caracter a String y se apregar al parser en la poscion contador
+                    contador++;
                 }
 
                 break; //Break
+
+            }else{
+                contador++;
             }
         }
-        contador++;
+
 
         if(contador == parser.length){
             System.out.println(resultado);
@@ -76,7 +92,7 @@ public class OperacionesAritmeticas {
             subDefiniciones.push(definiciones.removeFirst());
             resultadoRecursivo();
         }else{
-            resultado = Integer.parseInt(subDefiniciones.pop());
+            resultado = Float.parseFloat(subDefiniciones.pop());
             subResultado();
 
             definiciones.remove(0);
@@ -93,13 +109,13 @@ public class OperacionesAritmeticas {
     private void subResultado(){
         if(subDefiniciones.size() > 0){
             if(definiciones.get(0).equals("+")){
-                resultado += Integer.parseInt(subDefiniciones.pop());
+                resultado += Float.parseFloat(subDefiniciones.pop());
             }else if(definiciones.get(0).equals("-")){
-                resultado -= Integer.parseInt(subDefiniciones.pop());
+                resultado -= Float.parseFloat(subDefiniciones.pop());
             }else if(definiciones.get(0).equals("*")){
-                resultado *= Integer.parseInt(subDefiniciones.pop());
+                resultado *= Float.parseFloat(subDefiniciones.pop());
             }else if(definiciones.get(0).equals("/")){
-                resultado /= Integer.parseInt(subDefiniciones.pop());
+                resultado /= Float.parseFloat(subDefiniciones.pop());
             }
             subResultado();
         }else{
@@ -110,3 +126,4 @@ public class OperacionesAritmeticas {
 
     }
 }
+
