@@ -12,6 +12,7 @@ import java.util.LinkedList;
 /**
  * @author user
  * @param <E>
+ *     Genericos
  */
 public class Predicados<E extends Comparable<Integer> > {
 
@@ -19,7 +20,7 @@ public class Predicados<E extends Comparable<Integer> > {
 
 
     /**
-     *
+     *Se agregan a la lista lo siguiente
      */
     public Predicados(){
         listas.add("(list"); //Se agregan los Strings con el parentesis
@@ -29,8 +30,11 @@ public class Predicados<E extends Comparable<Integer> > {
 
     /**
      * @param valorA
+     * Primer parametro para comparar
      * @param valorB
+     * Segundo parametro para comparar
      * @return
+     * Verdadero si es igual y falso si no lo es
      */
     //Metodo para hacer equals. El mas facil JAJA
     public boolean equals(E valorA, E valorB){ //Tenemos 2 genericos y si son iguales regresa true, sino false
@@ -39,8 +43,11 @@ public class Predicados<E extends Comparable<Integer> > {
 
     /**
      * @param valorA
+     * Primer parametro para comparar
      * @param valorB
+     * Segundo parametro para comparar
      * @return
+     * Verdadero si es mayor A que B y falso si no lo es
      */
     //Metodo mayor que. Funciona solo con numeros (ints) devuelve true o false
     public Boolean mayorMenor(int valorA, int valorB ){
@@ -53,8 +60,11 @@ public class Predicados<E extends Comparable<Integer> > {
 
     /**
      * @param valorA
+     * Primer parametro para comparar
      * @param valorB
+     * Segundo parametro para comparar
      * @return
+     * Verdadero si es menor A que B y falso si no lo es
      */
     //Metodo menor que. Funciona con numeros (ints) devuelve true o false
     public Boolean menorMayor(int valorA, int valorB ){
@@ -67,7 +77,9 @@ public class Predicados<E extends Comparable<Integer> > {
 
     /**
      * @param valor
+     * String a procesar
      * @return
+     * verdadero si es atom o falso si no
      */
     //Booleano para decirme si es atom o no
     public boolean atom(String valor){
@@ -83,7 +95,9 @@ public class Predicados<E extends Comparable<Integer> > {
 
     /**
      * @param valor
+     * String a procesar
      * @return
+     * Verdadero o Falso si es Atom
      */
     //Tiene la misma logica que el del atoms
     public  boolean lista(String valor){

@@ -13,6 +13,7 @@ import java.util.Stack;
 
 /**
  * Clase Funciones
+ * @author user
  */
 public class Funciones {
     private String nombre;
@@ -26,11 +27,17 @@ public class Funciones {
 
     /**
      * @param definicion
+     * Lo que va a hacer la funcion
      * @param nombre
+     * Nombre de cada funcion
      * @param parametros
+     * Strings que definiran las funciones
      * @param operaciones
+     * operaciones a realizar
      * @param cantidadOperaciones
+     * Contador de operaciones
      * @param cantidadParametros
+     * contador de parametros
      */
     public Funciones(String definicion, String nombre, String parametros, String operaciones, int cantidadOperaciones, int cantidadParametros){
         this.definicion = definicion;
@@ -46,6 +53,7 @@ public class Funciones {
 
     /**
      * @param valores
+     * Lista que le va a ingresar
      */
     public void realizarFuncion(LinkedList<Integer> valores){
         if(valores.size() > cantidadParametros){

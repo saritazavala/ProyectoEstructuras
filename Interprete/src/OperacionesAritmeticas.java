@@ -34,7 +34,7 @@ public class OperacionesAritmeticas {
     }
 
     /**
-     *
+     * Operar cada operacion
      */
     private void hacerOperacionesAritmeticas() { //Metodo que realiza una operacion aritmetica dentro de un parentesis
         switch (parser[contador]){//va  a ir cambiando el contador y se va a ir con el switch viendo que tipo de operacion es

@@ -10,6 +10,9 @@ Marzo de 2019
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * @author user
+ */
 public class Interprete {
 
     private char[] operacion;
@@ -17,6 +20,10 @@ public class Interprete {
     private String operandoInicial = "";
     private String subOperaciones = "";
 
+    /**
+     * @param operacion
+     * Le va aingresar un String que va a ser la operacion
+     */
     public void operacionesAritmeticas(String operacion){
         this.operacion = dividirCaracteres(operacion);
         operandoInicial = Character.toString(this.operacion[1]);
@@ -49,6 +56,12 @@ public class Interprete {
         System.out.println(result);
     }
 
+    /**
+     * @param subOperacion
+     * Le va a entrar una subOperacions
+     * @return
+     * Retornar el resultado de la sub
+     */
     public Integer subOperaciones(String subOperacion){
         String operador = "";
         ArrayList<Integer> digitos  = new ArrayList<>();
@@ -77,7 +90,7 @@ public class Interprete {
                     case "+":  result += Integer.parseInt(number1);break;
                     case "-":  result -= Integer.parseInt(number1);break;
                     case "*":  result *= Integer.parseInt(number1);break;
-                    case "/":  result /= Integer.parseInt(number1);break; //There is an error comparing digits when there's no space between them, I mean 2 digit number
+                    case "/":  result /= Integer.parseInt(number1);break;
                 }
                 break;
             }
@@ -103,6 +116,12 @@ public class Interprete {
     }
 
 
+    /**
+     * @param operacion
+     * Separar cada operacion
+     * @return
+     * va a retornar los caracteres separadis
+     */
     private char[] dividirCaracteres(String operacion){
         char[] caracteres_Expresion;
         int[] contadorParentesis = new int[2];
@@ -121,6 +140,14 @@ public class Interprete {
         return  caracteres_Expresion;
     }
 
+    /**
+     * @param comparado1
+     * primer parametros String
+     * @param comparado2
+     * Segundo parametro String
+     * @return
+     * va a returnar true si son iguales o false si no
+     */
     private boolean equals(String comparado1, String comparado2){
         return comparado1.equals(comparado2);
     }

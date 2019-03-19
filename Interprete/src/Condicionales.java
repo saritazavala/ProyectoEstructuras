@@ -1,3 +1,6 @@
+/**
+ * @author user
+ */
 /*
 Sara Zavala 18893
 Alexa Bravo  18831
@@ -14,9 +17,17 @@ public class Condicionales {
     Predicados p = new Predicados();
     String operador = "";
 
+    /**
+     * @param o
+     */
     public Condicionales(String o){
         evaluarCondicionales(o);
     }
+
+    /**
+     * Tiene que entrar un String
+     * @param o
+     */
     //Desde la posicion inicial hasta que encuentre un espacio en blanco
     public void evaluarCondicionales(String o) {
         operaciones  = o.substring(1, o.indexOf(" ")); // This method returns new String object containing the substring of the given string from specified startIndex (inclusive).

@@ -28,6 +28,8 @@ public class Analizador {
     /**
      *
      * @param funciones
+     * Parametro para definir cada funcion
+     *
      */
 
     public void definirFunciones(String funciones){
@@ -37,6 +39,7 @@ public class Analizador {
 
     /**
      * @param funcion
+     * //Le va a entrar una funcion
      */
     public void realizarFunciones(String funcion){
         for (int i = 0; i < funcion.length() ; i++) {
@@ -50,6 +53,7 @@ public class Analizador {
 
     /**
      * @param funcion
+     * Separar cada funcion
      */
     //Referencia: Idea de substring obtenido aqui https://www.javatpoint.com/java-string-substring
     public void ParserDefinirFunciones(String funcion){
