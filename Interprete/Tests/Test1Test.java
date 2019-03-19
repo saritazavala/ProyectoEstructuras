@@ -36,7 +36,14 @@ public  class Test1Test {
 
     }
 
-    
+    @Test
+
+    public void test4(){
+        Test1Test prueba = new Test1Test();
+
+
+    }
+
 
 
 
