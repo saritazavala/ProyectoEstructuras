@@ -25,11 +25,19 @@ public class Analizador {
     private int cantidadOperaciones;
     private String[] separarOperaciones;
 
+    /**
+     *
+     * @param funciones
+     */
+
     public void definirFunciones(String funciones){
         ParserDefinirFunciones(funciones);
         this.funciones.push(new Funciones(definicionFuncion, nombreFuncion, parametros, funcionesARealizar, cantidadOperaciones, cantidadParametros));
     }
 
+    /**
+     * @param funcion
+     */
     public void realizarFunciones(String funcion){
         for (int i = 0; i < funcion.length() ; i++) {
             if(Character.isDigit(funcion.charAt(i))){
@@ -40,6 +48,9 @@ public class Analizador {
     }
 
 
+    /**
+     * @param funcion
+     */
     //Referencia: Idea de substring obtenido aqui https://www.javatpoint.com/java-string-substring
     public void ParserDefinirFunciones(String funcion){
         int limite = funcion.indexOf(" ") + 1;

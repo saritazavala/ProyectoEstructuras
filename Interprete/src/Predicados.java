@@ -9,21 +9,39 @@ Marzo de 2019
 * */
 import java.util.LinkedList;
 
+/**
+ * @author user
+ * @param <E>
+ */
 public class Predicados<E extends Comparable<Integer> > {
 
     LinkedList<String> listas = new LinkedList<>(); //Linked List para mis predicados
 
 
+    /**
+     *
+     */
     public Predicados(){
         listas.add("(list"); //Se agregan los Strings con el parentesis
         listas.add("(cons");
         listas.add("'(");
     }
 
+    /**
+     * @param valorA
+     * @param valorB
+     * @return
+     */
     //Metodo para hacer equals. El mas facil JAJA
     public boolean equals(E valorA, E valorB){ //Tenemos 2 genericos y si son iguales regresa true, sino false
         return  valorA.equals(valorB);
     }
+
+    /**
+     * @param valorA
+     * @param valorB
+     * @return
+     */
     //Metodo mayor que. Funciona solo con numeros (ints) devuelve true o false
     public Boolean mayorMenor(int valorA, int valorB ){
         if(valorA > valorB){
@@ -32,6 +50,12 @@ public class Predicados<E extends Comparable<Integer> > {
             return false;
         }
     }
+
+    /**
+     * @param valorA
+     * @param valorB
+     * @return
+     */
     //Metodo menor que. Funciona con numeros (ints) devuelve true o false
     public Boolean menorMayor(int valorA, int valorB ){
         if(valorA < valorB){
@@ -41,6 +65,10 @@ public class Predicados<E extends Comparable<Integer> > {
         }
     }
 
+    /**
+     * @param valor
+     * @return
+     */
     //Booleano para decirme si es atom o no
     public boolean atom(String valor){
         boolean esAtom = true; //Boolenado true
@@ -52,6 +80,11 @@ public class Predicados<E extends Comparable<Integer> > {
 
         return esAtom;//De lo contrario se regresa el booleano original
     }
+
+    /**
+     * @param valor
+     * @return
+     */
     //Tiene la misma logica que el del atoms
     public  boolean lista(String valor){
         boolean esLista = false; //Bolleado esLista

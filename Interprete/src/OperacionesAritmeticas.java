@@ -11,6 +11,9 @@ Marzo de 2019
 
 import java.util.*;
 
+/**
+ *@author user
+ */
 //Referencia de la idea: http://norvig.com/lispy.html
 public class OperacionesAritmeticas {
 
@@ -21,11 +24,18 @@ public class OperacionesAritmeticas {
     private String numeroDosDigitos = ""; //Para revisar si es un numero de dos digitos
     private int resultado = 0; // Resultado de las operaciones
 
+    /**
+     * @param procedimiento
+     */
     public OperacionesAritmeticas(String procedimiento){ //Operaciones Aritmeticas
         parser = procedimiento.toCharArray(); //Parser va a ser un char array que va a separar caracter por caracter
         contador = 0;
         hacerOperacionesAritmeticas();
     }
+
+    /**
+     *
+     */
     private void hacerOperacionesAritmeticas() { //Metodo que realiza una operacion aritmetica dentro de un parentesis
         switch (parser[contador]){//va  a ir cambiando el contador y se va a ir con el switch viendo que tipo de operacion es
             case '+': definiciones.addFirst("+"); break;
@@ -57,6 +67,9 @@ public class OperacionesAritmeticas {
         }
     }
 
+    /**
+     * Recursividad en operar y encontrar el resultado de las operaciones
+     */
     private void resultadoRecursivo(){
         if(!definiciones.peekFirst().equals("+") && !definiciones.peekFirst().equals("-") && !definiciones.peekFirst().equals("*")
                 && !definiciones.peekFirst().equals("/")){
@@ -74,6 +87,9 @@ public class OperacionesAritmeticas {
 
     }
 
+    /**
+     * Metodo para obtener el resultado de las subOperaciones
+     */
     private void subResultado(){
         if(subDefiniciones.size() > 0){
             if(definiciones.get(0).equals("+")){
